@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.config.security;
+package com.nicoarbio.auth.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

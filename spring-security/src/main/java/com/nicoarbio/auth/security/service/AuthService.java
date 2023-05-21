@@ -1,8 +1,8 @@
-package com.nicoarbio.auth.service;
+package com.nicoarbio.auth.security.service;
 
-import com.nicoarbio.auth.config.security.JwtIssuer;
-import com.nicoarbio.auth.config.security.UserPrincipal;
-import com.nicoarbio.auth.model.LoginResponse;
+import com.nicoarbio.auth.security.jwt.JwtIssuer;
+import com.nicoarbio.auth.security.config.UserPrincipal;
+import com.nicoarbio.auth.security.model.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

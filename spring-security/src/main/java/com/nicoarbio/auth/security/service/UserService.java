@@ -1,7 +1,7 @@
-package com.nicoarbio.auth.service;
+package com.nicoarbio.auth.security.service;
 
-import com.nicoarbio.auth.domain.UserEntity;
-import com.nicoarbio.auth.repository.UserRepository;
+import com.nicoarbio.auth.security.domain.UserEntity;
+import com.nicoarbio.auth.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

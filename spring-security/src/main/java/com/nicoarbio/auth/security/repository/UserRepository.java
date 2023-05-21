@@ -1,6 +1,6 @@
-package com.nicoarbio.auth.repository;
+package com.nicoarbio.auth.security.repository;
 
-import com.nicoarbio.auth.domain.UserEntity;
+import com.nicoarbio.auth.security.domain.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

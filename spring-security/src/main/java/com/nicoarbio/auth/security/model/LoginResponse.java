@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.model;
+package com.nicoarbio.auth.security.model;
 
 
 import lombok.Builder;

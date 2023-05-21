@@ -1,7 +1,8 @@
-package com.nicoarbio.auth.config.security;
+package com.nicoarbio.auth.security.jwt;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.nicoarbio.auth.security.config.UserPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 

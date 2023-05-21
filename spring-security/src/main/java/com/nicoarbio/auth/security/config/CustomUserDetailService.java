@@ -1,7 +1,7 @@
-package com.nicoarbio.auth.config.security;
+package com.nicoarbio.auth.security.config;
 
-import com.nicoarbio.auth.domain.UserEntity;
-import com.nicoarbio.auth.service.UserService;
+import com.nicoarbio.auth.security.domain.UserEntity;
+import com.nicoarbio.auth.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +19,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Necsitamos un UserPrincipal y el userService nos devuelve UserEntity
-        UserEntity user = userService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        //We need a UserPrincipal and userService returns UserEntity
+        UserEntity user = userService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return UserPrincipal.builder()
                 .userId(user.getId())
                 .email(user.getEmail())

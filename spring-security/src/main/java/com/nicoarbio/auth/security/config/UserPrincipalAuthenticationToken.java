@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.config.security;
+package com.nicoarbio.auth.security.config;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 

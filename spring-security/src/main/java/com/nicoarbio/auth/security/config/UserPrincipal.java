@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.config.security;
+package com.nicoarbio.auth.security.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -16,7 +16,7 @@ public class UserPrincipal implements UserDetails {
 
     private final String email;
 
-    @JsonIgnore //En el remoto caso de que se imprima este objeto, no se imprime el password
+    @JsonIgnore //In case UserPrincipal in printed, password is secured
     private final String password;
 
     private final Collection<? extends GrantedAuthority> authorities;

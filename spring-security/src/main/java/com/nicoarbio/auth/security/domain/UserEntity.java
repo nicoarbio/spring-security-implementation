@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.domain;
+package com.nicoarbio.auth.security.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

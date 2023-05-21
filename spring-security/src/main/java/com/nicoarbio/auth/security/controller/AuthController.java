@@ -1,10 +1,10 @@
-package com.nicoarbio.auth.controller;
+package com.nicoarbio.auth.security.controller;
 
-import com.nicoarbio.auth.config.security.UserPrincipal;
-import com.nicoarbio.auth.model.LoginRequest;
-import com.nicoarbio.auth.model.LoginResponse;
-import com.nicoarbio.auth.service.AuthService;
-import com.nicoarbio.auth.service.UserService;
+import com.nicoarbio.auth.security.config.UserPrincipal;
+import com.nicoarbio.auth.security.model.LoginRequest;
+import com.nicoarbio.auth.security.model.LoginResponse;
+import com.nicoarbio.auth.security.service.AuthService;
+import com.nicoarbio.auth.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
