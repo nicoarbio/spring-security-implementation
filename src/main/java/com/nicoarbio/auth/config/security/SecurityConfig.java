@@ -28,6 +28,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http
+                .formLogin().disable()
+                .httpBasic().disable()
+                //.oauth2Login(withDefaults())
                 .cors().disable() //CORS: cross origin resource sharing
                 .csrf().disable() //CSRF: cross site request forgery
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
