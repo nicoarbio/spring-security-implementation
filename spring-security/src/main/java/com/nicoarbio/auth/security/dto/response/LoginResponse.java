@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.security.model;
+package com.nicoarbio.auth.security.dto.response;
 
 
 import lombok.Builder;
