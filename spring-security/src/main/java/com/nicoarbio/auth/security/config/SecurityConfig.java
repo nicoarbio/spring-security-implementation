@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -38,13 +36,11 @@ public class SecurityConfig {
                 .and()
                 .securityMatcher("/**")
                 .authorizeHttpRequests(reg -> reg
-                        .requestMatchers(toH2Console()).permitAll()
                         .requestMatchers("/","/all-users").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                )
-                .headers().frameOptions().sameOrigin(); // for H2 console
+                );
         return http.build();
     }
 
