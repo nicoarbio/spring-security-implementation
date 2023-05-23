@@ -1,12 +1,10 @@
-package com.nicoarbio.auth.security.jwt;
+package com.nicoarbio.auth.security.properties;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
-@Setter
+@Data
 @Configuration
 @ConfigurationProperties("security.jwt")
 public class JwtProperties {

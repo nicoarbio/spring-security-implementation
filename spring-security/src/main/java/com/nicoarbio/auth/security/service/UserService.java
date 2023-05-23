@@ -1,8 +1,11 @@
 package com.nicoarbio.auth.security.service;
 
+import com.nicoarbio.auth.security.config.UserPrincipal;
 import com.nicoarbio.auth.security.domain.UserEntity;
+import com.nicoarbio.auth.security.dto.response.GenericUserResponse;
 import com.nicoarbio.auth.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +17,25 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Optional<UserEntity> findByEmail(String email) {
+    private final ModelMapper modelMapper;
+
+    public Optional<UserEntity> getByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public List<UserEntity> findAll() {
-        return (List<UserEntity>) userRepository.findAll();
+    public List<GenericUserResponse> getAll() {
+        return userRepository.findAll().stream().map(
+                user -> modelMapper.map(user, GenericUserResponse.class)
+        ).toList();
     }
+
+    public GenericUserResponse getByPrincipal(UserPrincipal principal) {
+        UserEntity user = this.getByEmail(principal.getEmail()).orElseThrow();
+        GenericUserResponse response = modelMapper.map(user, GenericUserResponse.class);
+        return response;
+    }
+
+
 
 
 

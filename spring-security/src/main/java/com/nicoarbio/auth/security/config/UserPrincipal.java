@@ -12,12 +12,14 @@ import java.util.Collection;
 @Builder
 public class UserPrincipal implements UserDetails {
 
-    private final Long userId;
+    private final String userId;
 
     private final String email;
 
     @JsonIgnore //In case UserPrincipal in printed, password is secured
     private final String password;
+
+    private final boolean locked;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -43,7 +45,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -53,6 +55,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !locked;
     }
 }

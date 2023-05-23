@@ -1,5 +1,6 @@
 package com.nicoarbio.auth.security.jwt;
 
+import com.nicoarbio.auth.security.properties.JwtProperties;
 import com.nicoarbio.auth.security.config.UserPrincipalAuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

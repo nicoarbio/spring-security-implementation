@@ -20,11 +20,13 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //We need a UserPrincipal and userService returns UserEntity
-        UserEntity user = userService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserEntity user = userService.getByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return UserPrincipal.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
-                .authorities(List.of(new SimpleGrantedAuthority(user.getRole())))
+                .authorities(user.getRoles().stream().map(
+                        role -> new SimpleGrantedAuthority(role.toString())
+                ).toList())
                 .password(user.getPassword())
                 .build();
     }
