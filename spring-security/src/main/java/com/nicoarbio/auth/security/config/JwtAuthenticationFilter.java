@@ -1,7 +1,9 @@
-package com.nicoarbio.auth.security.jwt;
+package com.nicoarbio.auth.security.config;
 
-import com.nicoarbio.auth.security.properties.JwtProperties;
 import com.nicoarbio.auth.security.config.UserPrincipalAuthenticationToken;
+import com.nicoarbio.auth.security.jwt.JwtDecoder;
+import com.nicoarbio.auth.security.jwt.JwtProperties;
+import com.nicoarbio.auth.security.jwt.JwtToPrincipalConverter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,10 +28,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        extractTokenFromRequest(request)
-                .map(jwtDecoder::decode) //.map(jwt -> jwtDecoder.decode(jwt))
-                .map(jwtToPrincipalConverter::convert) //.map(userPrincipal -> jwtToPrincipalConverter.convert(userPrincipal))
-                .map(UserPrincipalAuthenticationToken::new) //.map(userPrincipalAuthenticationToken -> new UserPrincipalAuthenticationToken(userPrincipalAuthenticationToken))
+        extractTokenFromRequest(request) // returns string (jwt)
+                .map(jwtDecoder::decode) //.map(jwt -> jwtDecoder.decode(jwt)) returns DecodedJWT (decodedJWT)
+                .map(jwtToPrincipalConverter::convert) //.map(decodedJWT -> jwtToPrincipalConverter.convert(decodedJWT)) returns UserPrincipal (userPrincipal)
+                .map(UserPrincipalAuthenticationToken::new) //.map(userPrincipal -> new UserPrincipalAuthenticationToken(userPrincipal)) returns UserPrincipalAuthenticationToken
                 .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
         filterChain.doFilter(request, response);
     }
@@ -37,8 +39,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     //               01234567->
     // Authorization: Bearer asdf.asdf.asdf
     private Optional<String> extractTokenFromRequest(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        String tokenPrefix = jwtProperties.getTokenPrefix().concat(" ");
+        final String token = request.getHeader("Authorization");
+        final String tokenPrefix = jwtProperties.getTokenPrefix().concat(" ");
         if (token != null && token.startsWith(tokenPrefix)) {
             return Optional.of(token.substring(tokenPrefix.length()));
         }

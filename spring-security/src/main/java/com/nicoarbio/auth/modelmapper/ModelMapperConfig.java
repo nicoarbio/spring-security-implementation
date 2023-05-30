@@ -17,7 +17,7 @@ public class ModelMapperConfig {
 
         // Mapping: UserEntity to GenericUserResponse
         modelMapper.typeMap(UserEntity.class, GenericUserResponse.class).addMappings(mapper -> {
-            mapper.map(UserEntity::getRoles, GenericUserResponse::setAuthorities);
+            mapper.map(UserEntity::getRolesAsString, GenericUserResponse::setAuthorities);
         });
 
 

@@ -1,9 +1,11 @@
-# WebApp Security implementation using Spring Security and React.JS
+# Fullstack-WebApp Security implementation using Spring Security and React.JS
 
 ## Hosting
-- Backend: Render. [Open swagger](https://spring-security-implementation-zk44.onrender.com/swagger-ui/index.html#).
+
+
+- Backend: Render. <a href="https://spring-security-implementation-zk44.onrender.com/swagger-ui/index.html#" target="_blank">Open swagger</a>.
 - Database: Render.
-- Frontend: Vercel. [Open web](https://spring-security-implementation-git-develop-nicoarbio.vercel.app/).
+- Frontend: Vercel. <a href="https://spring-security-implementation-nicoarbio.vercel.app" target="_blank">Open web</a>.
 
 ## Technologies used
 

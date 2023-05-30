@@ -3,17 +3,16 @@ package com.nicoarbio.auth.security.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "app_user")
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
@@ -28,13 +27,21 @@ public class UserEntity {
     @JsonIgnore
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Role.class)//, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<Role> roles;
 
     private String extraInfo;
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean accountLocked = Boolean.FALSE;
+
+    public List<String> getRolesAsString() {
+        return this.roles.stream().map(Role::getRole).toList();
+    }
 
 }

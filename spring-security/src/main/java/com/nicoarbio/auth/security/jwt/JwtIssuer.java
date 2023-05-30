@@ -2,7 +2,6 @@ package com.nicoarbio.auth.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.nicoarbio.auth.security.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +19,9 @@ public class JwtIssuer {
     public String issue(String userId, String userEmail, List<String> roles) {
         return JWT.create()
                 .withSubject(userId)
-                .withExpiresAt(Instant.now().plus(Duration.of(jwtProperties.getExpireAfterHours(), ChronoUnit.HOURS)))
                 .withClaim("e", userEmail) //e -> email
                 .withClaim("a", roles) //a -> authorities
+                .withExpiresAt(Instant.now().plus(Duration.of(jwtProperties.getExpireAfterHours(), ChronoUnit.HOURS)))
                 .sign(Algorithm.HMAC256(jwtProperties.getSecretKey()));
     }
 

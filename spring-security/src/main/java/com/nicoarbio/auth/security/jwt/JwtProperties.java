@@ -1,4 +1,4 @@
-package com.nicoarbio.auth.security.properties;
+package com.nicoarbio.auth.security.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

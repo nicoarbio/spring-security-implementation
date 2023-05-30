@@ -1,6 +1,5 @@
 package com.nicoarbio.auth.security.config;
 
-import com.nicoarbio.auth.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,20 +24,29 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http
+                // Communication will only be done over the controller methods
                 .formLogin().disable()
                 .httpBasic().disable()
-                //.oauth2Login(withDefaults())
-                .cors().disable() //CORS: cross origin resource sharing
+
+                // No session will be created or used by spring security
                 .csrf().disable() //CSRF: cross site request forgery
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .securityMatcher("/**")
-                .authorizeHttpRequests(reg -> reg
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/","/all-users").permitAll()
-                        .requestMatchers("/auth/login").permitAll()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+
+                // If request needs to be authenticated, it will be done by the filter
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+
+                // Configured paths
+                .securityMatcher("/**").authorizeHttpRequests(reg -> reg
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/",
+                                "/all-users",
+                                "/auth/login",
+                                "/oauth2/google/login"
+                        ).permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );

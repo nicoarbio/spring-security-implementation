@@ -1,6 +1,5 @@
 package com.nicoarbio.auth.security.dto.response;
 
-import com.nicoarbio.auth.security.domain.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +21,6 @@ public class GenericUserResponse {
     private String email;
 
     @Schema(example = "[ROLE_ADMIN]")
-    private Collection<Role> authorities;
+    private Collection<String> authorities;
 
 }

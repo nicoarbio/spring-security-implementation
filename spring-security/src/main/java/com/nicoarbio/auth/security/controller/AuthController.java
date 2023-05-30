@@ -1,7 +1,7 @@
 package com.nicoarbio.auth.security.controller;
 
 import com.nicoarbio.auth.security.config.UserPrincipal;
-import com.nicoarbio.auth.security.domain.UserEntity;
+import com.nicoarbio.auth.security.dto.request.GoogleLoginRequest;
 import com.nicoarbio.auth.security.dto.request.LoginRequest;
 import com.nicoarbio.auth.security.dto.response.GenericUserResponse;
 import com.nicoarbio.auth.security.dto.response.LoginResponse;
@@ -13,15 +13,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,7 +31,12 @@ public class AuthController {
 
     @PostMapping("/auth/login")
     public ResponseEntity<LoginResponse> authLogin(@RequestBody @Validated LoginRequest request) {
-        return new ResponseEntity<>(authService.attemptLogin(request.getEmail(), request.getPassword()), HttpStatus.OK);
+        return new ResponseEntity<>(authService.attemptEmailPasswordLogin(request.getEmail(), request.getPassword()), HttpStatus.OK);
+    }
+
+    @PostMapping("/oauth2/google/login")
+    public ResponseEntity<LoginResponse> oauth2GoogleLogin(@RequestBody @Validated GoogleLoginRequest request) {
+        return new ResponseEntity<>(authService.attemptGoogleLogin(request.getJwtToken()), HttpStatus.OK);
     }
 
     // TODO: Review and delete these endpoints

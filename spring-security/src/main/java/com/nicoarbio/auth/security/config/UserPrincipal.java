@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * This class has the User Credentials and is used by Spring Security
+ * Attributes: userId, email, password, isLocked, authorities.
+ */
 @Getter
 @Builder
 public class UserPrincipal implements UserDetails {
